@@ -9,8 +9,13 @@ class Platform(sprite.Sprite):
 		self.image = Surface((Stg.PLATFORM_WIDTH,
 							  Stg.PLATFORM_HEIGHT))
 
-		self.image = image.load("sprites/ambience/platformsprite.png")
+		self.image = image.load("sprites/ambience/platform.png")
 		self.rect = Rect(x, 
 						 y,
 						 Stg.PLATFORM_WIDTH,
 						 Stg.PLATFORM_HEIGHT)
+
+class Spikes(Platform):
+	def __init__(self, x ,y):
+		Platform.__init__(self,x ,y)
+		self.image = image.load("sprites/ambience/spikes.png")

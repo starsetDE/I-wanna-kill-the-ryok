@@ -1,6 +1,7 @@
 from pygame import *
 import pyganim
 from settings import Settings as Stg
+from block import Spikes
 
 class Player(sprite.Sprite):
 
@@ -30,18 +31,29 @@ class Player(sprite.Sprite):
         self.boltAnimLeft = pyganim.PygAnimation(boltAnim)
         self.boltAnimLeft.play()
                 
+        # Animation standing
         self.boltAnimStay = pyganim.PygAnimation(Stg.ANIMATION_STAY)
         self.boltAnimStay.play()
-        self.boltAnimStay.blit(self.image, (0, 0)) # Standing
+        self.boltAnimStay.blit(self.image, (0, 0))
                 
+        # Animation jump in left       
         self.boltAnimJumpLeft= pyganim.PygAnimation(Stg.ANIMATION_JUMP_LEFT)
         self.boltAnimJumpLeft.play()
                 
+        # Animation jump in right        
         self.boltAnimJumpRight= pyganim.PygAnimation(Stg.ANIMATION_JUMP_RIGHT)
         self.boltAnimJumpRight.play()
                 
+        # Animation jump         
         self.boltAnimJump= pyganim.PygAnimation(Stg.ANIMATION_JUMP)
         self.boltAnimJump.play()
+
+        # Animation death
+        boltAnim = []
+        for anim in Stg.ANIMATION_DEATH:
+            boltAnim.append((anim, Stg.ANIMATION_DELAY))
+        self.boltAnimDeath = pyganim.PygAnimation(boltAnim)
+        self.boltAnimDeath.play()
 
     def update(self,  left, right, up, platforms):
         '''Moving animation and treatment'''
@@ -87,6 +99,10 @@ class Player(sprite.Sprite):
         '''Collision with platforms'''
         for p in platforms:
             if sprite.collide_rect(self, p):
+                if isinstance(p, Spikes):
+                    self.image.fill(Color(Stg.COLOR))
+                    self.boltAnimDeath.blit(self.image, (0, 0))
+                    self.die()
 
                 if xvel > 0:                        # If collision right
                     self.rect.right = p.rect.left
@@ -102,3 +118,11 @@ class Player(sprite.Sprite):
                 if yvel < 0:                        # if collison down
                     self.rect.top = p.rect.bottom
                     self.yvel = 0
+
+    def die(self):
+        time.wait(70)
+        self.teleporting(self.startX, self.startY)
+
+    def teleporting(self, goX, goY):
+        self.rect.x = goX
+        self.rect.y = goY
