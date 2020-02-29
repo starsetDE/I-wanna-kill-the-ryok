@@ -33,7 +33,10 @@ class Player(sprite.Sprite):
         self.boltAnimLeft.play()
                 
         # Animation standing
-        self.boltAnimStay = pyganim.PygAnimation(Stg.ANIMATION_STAY)
+        boltAnim = []
+        for anim in Stg.ANIMATION_STAY:
+            boltAnim.append((anim, Stg.ANIMATION_DELAY_STAY))
+        self.boltAnimStay = pyganim.PygAnimation(boltAnim)
         self.boltAnimStay.play()
                 
         # Animation jump in left       

@@ -11,15 +11,15 @@ class Camera(object):
 
     def update(self, target):
         self.state = self.camera_func(self.state, target.rect)
-
+        
 def camera_configure(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
     l, t = -l+Stg.WIN_WIDTH / 2, -t+Stg.WIN_HEIGHT / 2
 
-    l - min (0, 1)
-    l = max(-(camera.width-Stg.WIN_WIDTH), 1)
-    t = max(-(camera.height-Stg.WIN_HEIGHT), t)
-    t = min(0, t)
+    l = min(0, l)                               # Not moving further than the left border
+    l = max(-(camera.width-Stg.WIN_WIDTH), l)   # Not moving further than the right border
+    t = max(-(camera.height-Stg.WIN_HEIGHT), t) # Not moving further than the down border
+    t = min(0, t)                               # Not moving further than the up border
 
-    return Rect(l, t, w, h)
+    return Rect(l, t, w, h) 

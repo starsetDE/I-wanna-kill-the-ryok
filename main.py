@@ -19,7 +19,7 @@ def main():
 
 
     # Loading image for background and creating background
-    bg = pygame.image.load("sprites/ambience/background.png")
+    bg = pygame.image.load("sprites/ambience/background8x6.png")
 
     hero = Player(48, 48)                           # Initialization Hero
     left = right = False                            # If not press key <- o ->
@@ -38,18 +38,18 @@ def main():
     # Level initialisation 
     for row in level:                               # All string in level(level find in levels)
         for col in row:                             # Each symbol
-            if col == "-":
+            if col == "g":
                 #Creating platforms, filling color and printing
                 grass = Grass(x, y)
                 entities.add(grass)
                 platforms.append(grass)
 
-            if col == "*":
+            if col == "s":
                 spikes = Spikes(x ,y)
                 entities.add(spikes)
                 platforms.append(spikes)
 
-            if col == "g":
+            if col == "e":
                 ground = Ground(x, y)
                 entities.add(ground)
                 platforms.append(ground)
@@ -87,8 +87,8 @@ def main():
                 up = False
 
         screen.blit(bg, (0,0))                      # Each iteration print background
-        hero.update(left, right, up, platforms)     # Handling event for Hero
         camera.update(hero)                         # Change camera position from character
+        hero.update(left, right, up, platforms)     # Handling event for Hero
 
         for e in entities:
             screen.blit(e.image, camera.apply(e))   # Print each element for entities
