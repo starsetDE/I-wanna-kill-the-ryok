@@ -20,11 +20,18 @@ class Grass(Platform):
         Platform.__init__(self, x, y)
         self.image = image.load("sprites/ambience/grass.png")
 
+class HitBox(Platform):
+    def __init__(self, x, y):
+        Platform.__init__(self, x ,y)
+        self.image = Surface((1, 1))
+        self.rect = Rect(x, y, 1, 1)
+
 class Spikes(Platform):
     def __init__(self, x ,y):
         Platform.__init__(self,x ,y)
         self.image = image.load("sprites/ambience/spikes.png")
         self.rect = self.image.get_rect(topleft=(x, y))
+
 class Ground(Platform):
     def __init__(self, x, y):
         Platform.__init__(self, x ,y)

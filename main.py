@@ -1,15 +1,17 @@
 import pygame
 from pygame import Surface, Color
 from player import Player
-from block import Platform, Spikes, Ground, Grass
 from settings import Settings as Stg
 from levels import *
 from camera import Camera, camera_configure
 import time
+from level_reader import level_reader
 
 def main():
     pygame.init()                                   # Initialization pygame
     pygame.mixer.init()
+    pygame.mixer.music.load("sounds/game_music.mp3")
+    pygame.mixer.music.play(-1)
 
     screen = pygame.display.set_mode(Stg.DISPLAY)   # Creating new window
     pygame.display.set_caption("I wanna kill the Ryok")
@@ -35,28 +37,7 @@ def main():
 
     x=y=0                                           # Coordinates for Hero
 
-    # Level initialisation 
-    for row in level:                               # All string in level(level find in levels)
-        for col in row:                             # Each symbol
-            if col == "g":
-                #Creating platforms, filling color and printing
-                grass = Grass(x, y)
-                entities.add(grass)
-                platforms.append(grass)
-
-            if col == "s":
-                spikes = Spikes(x ,y)
-                entities.add(spikes)
-                platforms.append(spikes)
-
-            if col == "e":
-                ground = Ground(x, y)
-                entities.add(ground)
-                platforms.append(ground)
-
-            x += Stg.PLATFORM_WIDTH                  # For each block creating platform
-        y += Stg.PLATFORM_HEIGHT                     # Same, but HEIGHT
-        x = 0         
+    level_reader(level, x ,y, entities, platforms)  # Creating level
 
     total_level_witdh = len(level[0])*Stg.PLATFORM_WIDTH
 

@@ -19,7 +19,7 @@ level = [
    "g                                                                                                                                                 g", 
    "g                                                                                                                                                 g",
    "g                                                                                                                                                 g",
-   "g     gg                                                                                                                                          g",
-   "g     gg                                                  ss                                                                                      g",
-   "g     ss          ss                    ss                                                                                                        g",
+   "g       ss    ss                                                                                                                                      g",
+   "g                                                         ss                                                                                      g",
+   "g                 ss                    ss                                                                                                        g",
    "ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"]

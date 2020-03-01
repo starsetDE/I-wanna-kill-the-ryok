@@ -1,7 +1,7 @@
 from pygame import * 
 import pyganim
 from settings import Settings as Stg
-from block import Spikes
+from block import Spikes, HitBox
 
 
 class Player(sprite.Sprite):
@@ -64,8 +64,8 @@ class Player(sprite.Sprite):
             if self.onGround:
 
                 # jump sounds
-                mixer.music.load("sounds/jump.mp3")
-                mixer.music.play()
+                jump_sound = mixer.Sound("sounds/jump.ogg")
+                jump_sound.play()
 
                 self.yvel = -Stg.JUMP_POWER
             self.image.fill(Color(Stg.COLOR))
@@ -107,7 +107,7 @@ class Player(sprite.Sprite):
         '''Collision with platforms'''
         for p in platforms:
             if sprite.collide_rect(self, p):
-                if isinstance(p, Spikes):
+                if isinstance(p, HitBox):
                     self.die()
 
                 if xvel > 0:                        # If collision right
